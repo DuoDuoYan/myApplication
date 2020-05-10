@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/regBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/back"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/regUserName"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="@string/username"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/regPhone"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="@string/phone"
+                android:inputType="phone"/>
+
+            <EditText
+                android:id="@+id/regPassword"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/regVerifyCode"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:ems="10"
+                    android:hint="@string/verify"
+                    android:inputType="number"/>
+
+                <Button
+                    android:id="@+id/btnVerify"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:text="@string/getVerify"/>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:background="#4CAF50"
+                android:text="@string/register"
+                android:textColor="@android:color/white"
+                android:textSize="18dp"/>
+
+        </LinearLayout>
+</LinearLayout>

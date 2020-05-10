@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+
+//短信验证
+MobSDK {
+    appKey "2e3278de9a8c8"
+    appSecret "bbdb183cb6e42768e43e112dbf49156d"
+    SMSSDK {}
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.yan.restaurant"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+configurations.all {
+
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group =='com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion'28.0.0' //这里改为你项目使用的版本即可
+            }
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        // 注册MobSDK
+        classpath "com.mob.sdk:MobSDK:2018.0319.1724"
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.facebook.fresco:fresco:1.2.0'
+    implementation 'jp.wasabeef:fresco-processors:2.1.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+    implementation 'com.github.florent37:viewanimator:1.0.5'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'junit:junit:4.12'
+    implementation files('libs/mysql-connector-java-5.1.25-bin.jar')
+    implementation 'com.google.code.gson:gson:2.8.6'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+    implementation   'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1..1.3'
+    implementation 'com.facebook.fresco:fresco:0.11.0'
+    implementation 'com.alibaba:fastjson:1.2.49'
+    implementation 'com.alibaba:fastjson:1.1.70.android'
+}

@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Y&amp;L餐厅管理系统</string>
+    <string name="scroll_behavior">@string/appbar_scrolling_view_behavior</string>
+    <string name="detail_header_behavior">com.yan.restaurant.detail.DetailHeaderBehavior</string>
+    <string name="load_end">加载完成</string>
+    <string name="load_failed">加载失败</string>
+    <string name="phone">请输入手机号</string>
+    <string name="username">请输入用户名</string>
+    <string name="password">请输入密码</string>
+    <string name="verify">验证码</string>
+    <string name="getVerify">获取短信验证</string>
+    <string name="login">登录</string>
+    <string name="welcome">欢迎登录 Y&amp;L</string>
+    <string name="validateCode">验证码登录</string>
+    <string name="register">注册</string>
+    <string name="help">帮助</string>
+    <string name="home">首页</string>
+    <string name="comment">评论</string>
+    <string name="order">订单</string>
+    <string name="customer">我的</string>
+    <string name="name">阿尔法餐厅</string>
+    <string name="info">追求更高品质，享受美好生活</string>
+    <string name="tag1">品牌</string>
+    <string name="tag2">机器人送餐</string>
+    <string name="total_price">实付金额：</string>
+    <string name="table">请选择餐桌号：</string>
+    <string name="quan">抵用券:</string>
+    <string name="noquan">暂无可用券</string>
+    <string name="pay">支付</string>
+    <string name="cooker">订单处理</string>
+    <string name="order_jindu">订单进度</string>
+    <string name="order_status">订单状态</string>
+    <string name="orders">订单编号</string>
+</resources>
