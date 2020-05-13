@@ -6,7 +6,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.mob.wrappers.PaySDKWrapper;
 import com.yan.restaurant.bean.Foods;
+import com.yan.restaurant.bean.OrderDetail;
+import com.yan.restaurant.bean.Orders;
 import com.yan.restaurant.bean.Table;
 import com.yan.restaurant.bean.User;
 import java.io.InputStream;
@@ -31,6 +36,11 @@ public class ConnectService {
     private static final String findBalance = urlPath + "user/findBalance";
     private static final String updateBalance = urlPath + "user/updateBalance";
     private static final String createOrder = urlPath + "user/createOrder";
+    private static final String getOrderByCustomer = urlPath + "user/getOrderByCustomer";                       //顾客订单
+    private static final String getOnOrders = urlPath + "user/getOnOrders";                 //代接订单
+    private static final String getOrdersByCooker = urlPath + "user/getOrdersByCooker";     //厨师所有已接订单
+    private static final String getOrderDetailByOrderNum = urlPath + "user/getOrderDetailByOrderNum";     //厨师已接订单
+    private static final String updateOrderStatus = urlPath + "user/updateOrderStatus";     //订单状态
 
     public static String handleData(JSONObject jsonObject, URL url) throws Exception{
         int code;
@@ -126,7 +136,7 @@ public class ConnectService {
             URL url = new URL(updateBalance);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("phone",phone);
-            jsonObject.put("price",price);
+            jsonObject.put("balance",price.substring(1));
             String json = handleData(jsonObject,url);
             return json;
         }catch (Exception e){
@@ -165,16 +175,13 @@ public class ConnectService {
             String str = handleData(null,url);
             if(str != null) {
                 Log.v("Connect","msg:"+str);
-                String result = str.substring(1,str.length()-1);
-                String[] arr = result.split("\\},");
+                JsonArray jsonArray = new JsonParser().parse(str).getAsJsonArray();
+                Gson gson = new Gson();
                 List<Foods> foodsList = new ArrayList<>();
-                for(int i=0;i<arr.length-1;i++){
-                    String food = arr[i]+"}";
-                    Foods foods = JSONObject.parseObject(food,Foods.class);
+                for(int i=0;i<jsonArray.size();i++){
+                    Foods foods = gson.fromJson(jsonArray.get(i),Foods.class);
                     foodsList.add(foods);
                 }
-                Foods foods = JSONObject.parseObject(arr[arr.length-1],Foods.class);
-                foodsList.add(foods);
                 return foodsList;
             }
         } catch (Exception e) {
@@ -197,15 +204,113 @@ public class ConnectService {
         return null;
     }
 
-    public static String createOrder(String ids,String phone,int table,Long date,String price){
+    public static int createOrder(String ids,String phone,int table,Long date,String price){
         try{
             URL url = new URL(createOrder);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("ids",ids);
             jsonObject.put("customer",phone);
-            jsonObject.put("tableNum",table);
+            jsonObject.put("tableNum",String.valueOf(table));
             jsonObject.put("orderDate",String.valueOf(date));
             jsonObject.put("totalPrice",price);
+            String json = handleData(jsonObject,url);
+            return Integer.valueOf(json);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static List<Orders> getOrdersByPhone(String phone,int tag){
+        try{
+            URL url = null;
+            JSONObject jsonObject = new JSONObject();
+            if(tag == 0){
+                url = new URL(getOrderByCustomer);
+                jsonObject.put("customer",phone);
+            }else if(tag == 1){
+                url = new URL(getOrdersByCooker);
+                jsonObject.put("cooker",phone);
+            }
+            String json = handleData(jsonObject,url);
+            if(json != null) {
+                Log.v("Connect","msg:"+json);
+                JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
+                Gson gson = new Gson();
+                List<Orders> ordersList = new ArrayList<>();
+                for(int i=0;i<jsonArray.size();i++){
+                    Orders order = gson.fromJson(jsonArray.get(i),Orders.class);
+                    ordersList.add(order);
+                }
+                return ordersList;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<OrderDetail> getOrderDetailByOrderNum(String orderNum,String tableNum){
+        try{
+            URL url = new URL(getOrderDetailByOrderNum);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("orderNum",orderNum);
+            jsonObject.put("tables",tableNum);
+            String json = handleData(jsonObject,url);
+            if(json != null) {
+                Log.v("Connect","msg:"+json);
+                JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
+                Gson gson = new Gson();
+                List<OrderDetail> lists = new ArrayList<>();
+                for(int i=0;i<jsonArray.size();i++){
+                    OrderDetail orderDetail = gson.fromJson(jsonArray.get(i),OrderDetail.class);
+                    lists.add(orderDetail);
+                }
+                return lists;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<Orders> getOnOrder(){
+        try{
+            URL url = new URL(getOnOrders);
+            JSONObject jsonObject = new JSONObject();
+            String json = handleData(jsonObject,url);
+            if(json != null) {
+                Log.v("Connect","msg:"+json);
+                List<Orders> ordersList = new ArrayList<>();
+                JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
+                Gson gson = new Gson();
+                for(int i=0;i<jsonArray.size();i++){
+                    Orders order = gson.fromJson(jsonArray.get(i),Orders.class);
+                    Log.v("Connect","getOrder:"+order);
+                    ordersList.add(order);
+                }
+                return ordersList;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String updateOrderStatus(String phone,String orderNum,String robot,int tag){
+        try{
+            URL url = new URL(updateOrderStatus);
+            JSONObject jsonObject = new JSONObject();
+            if(tag == 1){
+                jsonObject.put("cooker",phone);
+                jsonObject.put("id",orderNum);
+            }else if(tag == 2){
+                jsonObject.put("robotNum",robot);
+                jsonObject.put("id",orderNum);
+            }else{
+                jsonObject.put("id",orderNum);
+            }
+            jsonObject.put("tag",tag);
             String json = handleData(jsonObject,url);
             return json;
         }catch (Exception e){
@@ -213,4 +318,5 @@ public class ConnectService {
         }
         return null;
     }
+
 }

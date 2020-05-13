@@ -27,8 +27,15 @@
     <string name="quan">抵用券:</string>
     <string name="noquan">暂无可用券</string>
     <string name="pay">支付</string>
-    <string name="cooker">订单处理</string>
+    <string name="cooker">订单列表</string>
     <string name="order_jindu">订单进度</string>
     <string name="order_status">订单状态</string>
     <string name="orders">订单编号</string>
+    <string name="order_date">下单时间</string>
+    <string name="order_price">总金额</string>
+    <string name="receive">接单</string>
+    <string name="order_deal">订单处理</string>
+    <string name="robot1">通知送餐</string>
+    <string name="robot2">确认送餐</string>
+    <string name="order_finish">订单完成</string>
 </resources>

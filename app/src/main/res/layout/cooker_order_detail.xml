@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingLeft="25dp"
+    android:paddingRight="20dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/deal_food"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="订单编号"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/deal_table"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="餐桌编号"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/deal_num"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="菜品数量"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/deal_operate"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="操作"
+        android:textSize="14sp"/>
+</LinearLayout>

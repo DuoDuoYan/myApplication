@@ -26,8 +26,10 @@
         <activity android:name=".detail.ShopDetailActivity"/>
         <activity android:name=".activity.HomeActivity"/>
         <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.CookerActivity"/>
         <activity android:name=".activity.PayActivity" />
+        <activity android:name=".activity.OrderDetailActivity" />
+        <activity android:name=".activity.OrderDealActivity" />
+        <activity android:name=".activity.CookerActivity" />
     </application>
 
 

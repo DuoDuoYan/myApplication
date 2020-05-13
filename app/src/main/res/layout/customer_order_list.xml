@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingLeft="25dp"
+    android:paddingRight="20dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/customer_order"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="订单编号"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/customer_date"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="下单时间"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/customer_price"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="金额"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/customer_status"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="状态"
+        android:textSize="14sp"/>
+</LinearLayout>

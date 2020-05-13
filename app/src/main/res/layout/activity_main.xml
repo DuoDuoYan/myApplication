@@ -66,8 +66,6 @@
         <TextView
             style="@style/cut_style"
             android:text="吃的不是食物，是品质" />
-
-        <TextView style="@style/cut_style" />
     </LinearLayout>
 
     <com.yan.restaurant.Views.ShopInfoContainer

@@ -14,13 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yan.restaurant.R;
-import com.yan.restaurant.adapters.CarAdapter;
 import com.yan.restaurant.bean.FoodBean;
 import com.yan.restaurant.bean.Table;
 import com.yan.restaurant.utils.BaseUtils;
-import com.yan.restaurant.utils.ConnectService;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +38,7 @@ public class PayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pay);
+        setContentView(R.layout.acitvity_pay);
         //设置初始化视图
         initView();
         //事件监听
@@ -49,11 +46,11 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
         price = findViewById(R.id.pay_price);
         payBack = findViewById(R.id.payBack);
         spinner = findViewById(R.id.tables);
         payBtn = findViewById(R.id.payBtn);
-
 
         Intent intent = getIntent();
         price.setText(intent.getStringExtra("price"));
@@ -103,6 +100,7 @@ public class PayActivity extends AppCompatActivity {
                     if(Double.valueOf(payPrice.substring(1))>Double.valueOf(balance)){
                         Toast.makeText(getApplicationContext(),"余额不足，请充值",Toast.LENGTH_LONG).show();
                     }else{
+                        Log.v("PayActivity","phone:"+phone);
                         //支付
                         String result = BaseUtils.updateBalance(phone,payPrice);
                         //生成订单
@@ -117,18 +115,28 @@ public class PayActivity extends AppCompatActivity {
                                 tableId = tableList.get(i).getId();
                             }
                         }
-                        String orderResult = BaseUtils.createOrder(ids.toString(),phone,tableId,new Date().getTime(),price.getText().toString().substring(1));
-
-
-                        if("success".equals(result)){
+                        Long date = new Date().getTime();
+                        int orderID = BaseUtils.createOrder(ids.toString(),phone,tableId,date,price.getText().toString().substring(1));
+                        if(orderID>0){
                             Toast.makeText(getApplicationContext(),"支付成功",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(PayActivity.this,OrderDetail.class);
-//                            intent.putExtra("orderNum",orderNum);
+                            Intent intent = new Intent(PayActivity.this,OrderDetailActivity.class);
+                            intent.putExtra("phone",phone);
+                            intent.putExtra("date",date);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(getApplicationContext(),"支付失败",Toast.LENGTH_LONG).show();
                         }
                     }
                 }
             }
         });
 
+        payBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PayActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

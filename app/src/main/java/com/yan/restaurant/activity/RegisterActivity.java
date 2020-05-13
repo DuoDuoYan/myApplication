@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -111,10 +112,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             Intent it = new Intent(RegisterActivity.this, LoginActivity.class);
                                             startActivity(it);
                                         } else {
+                                            Looper.prepare();
                                             Toast.makeText(getApplicationContext(), "注册失败。。。", Toast.LENGTH_LONG).show();
+                                            Looper.loop();
+
                                         }
                                     }else{
+                                        Looper.prepare();
                                         Toast.makeText(getApplicationContext(), "该手机号已注册。。。", Toast.LENGTH_LONG).show();
+                                        Looper.loop();
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();

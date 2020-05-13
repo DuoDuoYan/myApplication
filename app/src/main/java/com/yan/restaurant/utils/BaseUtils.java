@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import com.yan.restaurant.bean.CommentBean;
 import com.yan.restaurant.bean.FoodBean;
 import com.yan.restaurant.bean.Foods;
+import com.yan.restaurant.bean.OrderDetail;
+import com.yan.restaurant.bean.Orders;
 import com.yan.restaurant.bean.Table;
 import com.yan.restaurant.bean.TypeBean;
 
@@ -30,8 +32,34 @@ public class BaseUtils {
 		return result;
 	}
 
-	public static String createOrder(String ids,String phone,int tableId,Long date,String price){
-		String result = ConnectService.createOrder(ids,phone,tableId,date,price);
+	public static int createOrder(String ids,String phone,int tableId,Long date,String price){
+		int orderID = ConnectService.createOrder(ids,phone,tableId,date,price);
+		return orderID;
+	}
+
+	public static List<Orders> getCustomerOrder(String phone){
+		List<Orders> ordersList = ConnectService.getOrdersByPhone(phone,0);
+		return ordersList;
+	}
+
+	public static List<Orders> getCookerOrder(String phone){
+
+		List<Orders> ordersList = ConnectService.getOrdersByPhone(phone,1);
+		return ordersList;
+	}
+
+	public static List<OrderDetail> getOrderDetailByOrderNum(String orderNum,String tableNum){
+
+		List<OrderDetail> lists = ConnectService.getOrderDetailByOrderNum(orderNum,tableNum);
+		return lists;
+	}
+
+	public static List<Orders> getOnOrder(){
+		List<Orders> ordersList = ConnectService.getOnOrder();
+		return ordersList;
+	}
+	public static String updateOrderStatus(String phone,String orderNum,String robot,int tag){
+		String result = ConnectService.updateOrderStatus(phone,orderNum,robot,tag);
 		return result;
 	}
 
