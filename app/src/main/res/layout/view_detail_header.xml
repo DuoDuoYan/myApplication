@@ -30,11 +30,12 @@
                 android:src="@drawable/img_detail"/>
 
             <TextView
+                android:id="@+id/info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_margin="8dp"
-                android:text="introintrointrointrointrointrointrointrointrointrointrointrointrointrointrointrointro"
+                android:text=""
                 android:textColor="@color/white"/>
         </FrameLayout>
 

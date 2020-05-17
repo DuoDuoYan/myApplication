@@ -10,6 +10,7 @@ import com.yan.restaurant.R;
 public class CustomerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_customer,null);
+//        return inflater.inflate(R.layout.fragment_customer,null);
+        return null;
     }
 }

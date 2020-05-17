@@ -32,13 +32,11 @@ public class FoodAdapter extends BaseQuickAdapter<FoodBean, BaseViewHolder> {
                 .setText(R.id.tv_price, item.getStrPrice(mContext))
                 .setText(R.id.tv_sale, item.getSale())
                 .setText(R.id.tv_summary,item.getInfo())
-//                .setImageBitmap(R.id.iv_food,item.getImage())
                 .setImageResource(R.id.iv_food, item.getIcon()).addOnClickListener(R.id.addwidget)
                 .addOnClickListener(R.id.food_main);
 
         Log.i("---", item.getName() + "========" + helper.getLayoutPosition());
         AddWidget addWidget = helper.getView(R.id.addwidget);
-//		addWidget.setData(this, helper.getAdapterPosition(), onAddClick);
         addWidget.setData(onAddClick, item);
 
         if (helper.getAdapterPosition() == 0) {

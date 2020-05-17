@@ -92,7 +92,7 @@ public class BaseUtils {
 			foodBean.setSale("月售" + lists.get(i).getSelled());
 			foodBean.setType(lists.get(i).getCatalogName());
 			//图片
-			int resID = context.getResources().getIdentifier("food" + new Random().nextInt(8), "drawable", "com.yan.restaurant");
+			int resID = context.getResources().getIdentifier("food" + new Random().nextInt(11), "drawable", "com.yan.restaurant");
 			foodBean.setIcon(resID);
 			fList.add(foodBean);
 		}
@@ -115,7 +115,10 @@ public class BaseUtils {
 	public static List<CommentBean> getComment() {
 		ArrayList<CommentBean> cList = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
-			cList.add(new CommentBean());
+			CommentBean commentBean = new CommentBean();
+			commentBean.setContent("好评");
+			commentBean.setName("用户"+i);
+			cList.add(commentBean);
 		}
 		return cList;
 	}
